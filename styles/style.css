@@ -1,0 +1,337 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #212121;
+    --primary-color: #007bff;
+    --sidebar-width: 260px;
+    --font-main: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;
+
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--text-color);
+}
+
+
+/* --- Sidebar Styles --- */
+.sidebar {
+    width: var(--sidebar-width);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #f8f8f8;
+    padding: 40px;
+    box-sizing: border-box;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 180px;     
+    height: 220px;      
+    object-fit: cover;
+    margin-bottom: 30px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.sidebar-nav a {
+    color: #555;
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+.sidebar-nav a.active {
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+
+/* --- Main Content Styles --- */
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 60px;
+    width: calc(100% - var(--sidebar-width));
+    max-width: 820px;
+}
+
+.main-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.main-content p {
+    font-size: 1.1em;
+    line-height: 1.7;
+}
+
+
+/* --- Responsive Design (Mobile/Tablet) --- */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 20px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .c {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 30px;
+    }
+}
+
+
+
+* --- Additions for Readings Page --- */
+
+.reading-section {
+    margin-bottom: 50px;
+}
+
+.reading-section h2 {
+    font-size: 1.5em;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+
+/* --- Bookshelf Styles (Clickable LI, no underline) --- */
+.bookshelf {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.bookshelf li {
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.bookshelf li a {
+    text-decoration: none; 
+    color: inherit; 
+    display: block;
+    transition: background-color 0.2s ease-in-out;
+    padding: 4px 8px;
+    margin: -4px -8px; 
+    border-radius: 4px;
+}
+
+.bookshelf li a:hover {
+    background-color: #f5f5f5;
+}
+
+
+/* --- Papershelf Styles (standard links) --- */
+.papershelf {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.papershelf li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+
+/* --- Online Reading & Textbooks Styles --- */
+.list-container p {
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.title-link {
+    font-weight: bold;
+    color: #2a7ae2; 
+}
+
+.title-link:hover {
+    text-decoration: underline;
+    color: #212121;
+}
+
+
+
+
+
+/* --- Additions for Section Header Linking (Corrected Alignment) --- */
+
+html {
+    scroll-behavior: smooth;
+}
+
+.reading-section h2 a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;    
+    display: inline-block;   
+}
+
+.link-icon {
+    position: absolute;      
+    left: -1.4em;           
+    top: 50%;             
+    transform: translateY(-50%);
+    width: 0.8em;
+    height: 0.8em;
+    opacity: 0;             
+    transition: opacity 0.2s ease-in-out;
+    fill: currentColor;
+}
+
+.reading-section h2 a:hover .link-icon {
+    opacity: 0.6;
+}
+
+
+
+
+
+/* --- Additions for Bookmarks Page --- */
+
+.quote-list {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.quote-list li {
+    margin-bottom: 24px;
+    font-size: 1.1em;
+    line-height: 1.7;
+}
+
+.quote-list li a {
+    color: #2a7ae2; 
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+}
+
+.quote-list li a:hover {
+    color: #212121; 
+}
+
+
+
+
+/* --- ASCII Art Style --- */
+.ascii-art {
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8em;
+    line-height: 1.2;
+    text-align: left;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    user-select: none;
+}
+
+
+
+/* --- Style for "stealth" links that look like normal text --- */
+.stealth-link {
+    color: inherit;          /* Inherits the color from the parent text */
+    text-decoration: none;   /* Removes the underline */
+    cursor: pointer;         /* Ensures the cursor changes to a pointer */
+}
+
+/* Ensure it doesn't change style on hover either */
+.stealth-link:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+
+/* --- Additions for Mobile Hamburger Menu --- */
+
+#mobile-menu-button {
+    display: none; /* Hidden on desktop */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-color);
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#mobile-menu-button span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--text-color);
+    margin: 4px auto;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animation for the hamburger icon to turn into an 'X' */
+#mobile-menu-button.is-active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+#mobile-menu-button.is-active span:nth-child(2) {
+    opacity: 0;
+}
+#mobile-menu-button.is-active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Styles for the mobile navigation dropdown when it's open */
+.sidebar-nav.is-open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
