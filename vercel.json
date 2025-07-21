@@ -1,0 +1,7 @@
+{
+    "rewrites": [
+      { "source": "/readings", "destination": "/readings.html" },
+      { "source": "/bookmarks", "destination": "/bookmarks.html" },
+      { "source": "/misc", "destination": "/misc.html" }
+    ]
+  }

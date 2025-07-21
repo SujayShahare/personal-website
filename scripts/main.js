@@ -94,8 +94,10 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
 
+
     window.addEventListener('popstate', function() {
         const path = window.location.pathname.replace(/\.html$/, '') + window.location.hash;
-        loadPage(path.includes('#') ? path.split('#')[0] + '.html' : path + (path === '/' ? 'index.html' : '.html'));
+        const fullPath = path.includes('#') ? path.split('#')[0] + '.html' : (path === '/' ? '/index.html' : path + '.html');
+        loadPage(fullPath);
     });
 });
