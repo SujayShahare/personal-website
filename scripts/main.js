@@ -1,4 +1,4 @@
-// scripts/main.js (New SPA-like version)
+// scripts/main.js (Updated SPA-like version)
 
 // Function to fetch and display page content
 const loadPage = async (url) => {
@@ -19,8 +19,15 @@ const loadPage = async (url) => {
         document.title = newTitle;
         document.querySelector('#main-content').innerHTML = newContent;
 
-        // Scroll to the top of the page
-        window.scrollTo(0, 0);
+        // Scroll to the target hash if it exists
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            window.scrollTo(0, 0); // Scroll to top if no hash
+        }
 
         // Update the active link in the sidebar
         updateActiveLink();
@@ -46,10 +53,8 @@ const updateActiveLink = () => {
     });
 };
 
-
 // Main execution block
 document.addEventListener("DOMContentLoaded", function() {
-    
     // Load the sidebar initially
     fetch('partials/sidebar.html')
         .then(response => response.text())
@@ -62,11 +67,22 @@ document.addEventListener("DOMContentLoaded", function() {
                     event.preventDefault(); // Prevent default full page reload
                     const href = this.getAttribute('href');
                     
-                    // Update the URL in the browser's history without reloading
-                    history.pushState(null, '', href);
-                    
-                    // Load the new page content
-                    loadPage(href);
+                    // Check if the href includes a hash
+                    if (href.includes('#')) {
+                        const [path, hash] = href.split('#');
+                        history.pushState(null, '', href);
+                        loadPage(path || '/').then(() => {
+                            const targetElement = document.querySelector(`#${hash}`);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        });
+                    } else {
+                        // Update the URL in the browser's history without reloading
+                        history.pushState(null, '', href);
+                        // Load the new page content
+                        loadPage(href);
+                    }
                 });
             });
 
@@ -76,6 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Handle browser back/forward buttons
     window.addEventListener('popstate', function() {
-        loadPage(window.location.pathname);
+        loadPage(window.location.pathname + window.location.hash);
     });
 });
