@@ -40,17 +40,20 @@ const loadPage = async (url) => {
 // Function to update the active link in the sidebar
 const updateActiveLink = () => {
     const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+    const profileLink = document.querySelector('#profile-link');
     const currentPath = window.location.pathname;
 
-    sidebarLinks.forEach(link => {
-        // Remove active class from all links
-        link.classList.remove('active');
+    // Remove active class from all links
+    sidebarLinks.forEach(link => link.classList.remove('active'));
+    if (profileLink) profileLink.classList.remove('active');
 
-        // Add active class to the link that matches the current URL
+    // Add active class to the link that matches the current URL
+    sidebarLinks.forEach(link => {
         if (link.getAttribute('href') === currentPath || (currentPath === '/' && link.getAttribute('href') === '/index.html')) {
             link.classList.add('active');
         }
     });
+    if (currentPath === '/' && profileLink) profileLink.classList.add('active');
 };
 
 // Main execution block
@@ -62,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('sidebar-container').innerHTML = data;
 
             // Add click listeners to the newly loaded sidebar links
-            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            document.querySelectorAll('.sidebar-nav a, #profile-link').forEach(link => {
                 link.addEventListener('click', function(event) {
                     event.preventDefault(); // Prevent default full page reload
                     const href = this.getAttribute('href');
@@ -81,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         // Update the URL in the browser's history without reloading
                         history.pushState(null, '', href);
                         // Load the new page content
-                        loadPage(href);
+                        loadPage(href === '/' ? '/index.html' : href);
                     }
                 });
             });
