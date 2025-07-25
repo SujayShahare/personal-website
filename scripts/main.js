@@ -1,4 +1,3 @@
-
 // function to fetch and display page content
 const loadPage = async (url) => {
     try {
@@ -58,7 +57,61 @@ const updateActiveLink = () => {
     if (currentPath === '/' && profileLink) profileLink.classList.add('active');
 };
 
+// Mobile hamburger menu functionality
+const initializeMobileMenu = () => {
+    const hamburgerButton = document.getElementById('mobile-menu-button');
+    const sidebar = document.querySelector('.sidebar');
+    
+    // Create backdrop element
+    const backdrop = document.createElement('div');
+    backdrop.className = 'mobile-backdrop';
+    document.body.appendChild(backdrop);
 
+    const toggleMenu = () => {
+        const isOpen = sidebar.classList.contains('is-open');
+        
+        if (isOpen) {
+            // Close menu
+            sidebar.classList.remove('is-open');
+            backdrop.classList.remove('is-open');
+            hamburgerButton.classList.remove('is-active');
+            document.body.style.overflow = ''; // Re-enable scrolling
+        } else {
+            // Open menu
+            sidebar.classList.add('is-open');
+            backdrop.classList.add('is-open');
+            hamburgerButton.classList.add('is-active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+    };
+
+    const closeMenu = () => {
+        sidebar.classList.remove('is-open');
+        backdrop.classList.remove('is-open');
+        hamburgerButton.classList.remove('is-active');
+        document.body.style.overflow = '';
+    };
+
+    // Hamburger button click
+    hamburgerButton.addEventListener('click', toggleMenu);
+
+    // Backdrop click to close
+    backdrop.addEventListener('click', closeMenu);
+
+    // Close menu when navigation link is clicked
+    sidebar.addEventListener('click', (e) => {
+        if (e.target.matches('.sidebar-nav a, #profile-link')) {
+            closeMenu();
+        }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+            closeMenu();
+        }
+    });
+};
 
 document.addEventListener("DOMContentLoaded", function() {
     // load the sidebar initially
@@ -91,9 +144,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             updateActiveLink();
+            
+            // Initialize mobile menu after sidebar is loaded
+            initializeMobileMenu();
         });
-
-
 
     window.addEventListener('popstate', function() {
         const path = window.location.pathname.replace(/\.html$/, '') + window.location.hash;
